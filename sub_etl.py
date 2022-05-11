@@ -25,6 +25,14 @@ else:
 df = df.replace([0,'nan'], np.NaN)
 df = df.dropna(axis=1, how='all')
 
+# Calculate number of churners each month:
+df_t = df.T
+l = pd.DataFrame()
+for j in df_t.columns:
+    tmp = ((df_t[j].shift(-1).isna()) & (~df_t[j].isna()))
+    s = tmp.shift(1)
+    l = l.append(s,ignore_index=True)
+    print('ok')
 # Drop cols with strings:
 
 # Calculate metrics:
